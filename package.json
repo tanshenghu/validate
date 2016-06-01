@@ -1,0 +1,30 @@
+{
+  "family": "widget",
+  "name": "validate",
+  "version": "1.0.0",
+  "description": "简单的表单验证方法，需要把验证规则写进标签中，message可配置标签中或js文件中，验证支持临时创建新添加的节点",
+  "homepage": "http://git.oschina.net/tanshenghu/myweb/tree/widget/1.0.0/validate",
+  "author": "谭生虎",
+  "maintainers": [
+    "谭生虎 <tanshenghu@163.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "http://git.oschina.net/tanshenghu/myweb/tree/widget/1.0.0/validate.git"
+  },
+  "bugs": {
+    "url": "http://git.oschina.net/tanshenghu/myweb/tree/widget/1.0.0/validate/issues"
+  },
+  "keywords": [],
+  "licenses": "tsh_worker",
+  "spm": {
+    "output": [
+      "validate.js"
+    ],
+    "alias": {
+      "$" : "$"
+    },
+    "devAlias": {},
+    "engines": {}
+  }
+}

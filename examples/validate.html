@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="Author" content="TanShenghu">
+    <title>Validate 表单验证 组件</title>
+    <link rel="stylesheet" href="http://www.tanshenghu.com/static/css/base.css">
+    <style>
+    body{font-size:12px;padding:20px;}
+    
+    textarea{border:1px solid #d1d2d3;height:100px;line-height:20px;-webkit-border-radius:3px;border-radius:3px}
+    [type="text"]{border:1px solid #d1d2d3;height:34px;line-height:34px;-webkit-border-radius:3px;border-radius:3px}
+    [type="text"]:hover,textarea:hover{border-color:#3c78c3}
+    [type="text"]:focus,textarea:focus{box-shadow:0 0 0 3px rgba(76,140,220,0.6)}.verify-err{border-color:#ff5400 !important}
+    .verify-err:focus{box-shadow:0 0 0 3px rgba(255,85,0,0.6) !important}
+    
+    td [type="text"],td select,td textarea{width:100%;border:1px solid #ccc;}
+    </style>
+    <script src="http://a.alipayobjects.com/??seajs/seajs/2.2.0/sea.js,jquery/jquery/1.8.2/jquery.js"></script>
+    <script>
+    seajs.config({
+        paths: {
+            host: 'http://www.tanshenghu.com',
+            widget: 'http://www.tanshenghu.com/widget'
+        },
+        alias: {
+            $: 'host/static/js/$',
+            'validate': 'widget/validate/1.0.0/validate'
+        }
+    });
+    </script>
+</head>
+<body>
+    
+    <form>
+        <table width="90%">
+            <tr>
+                <th width="15%">姓名：</th><td width="35%"><input type="text" name="userName" data-needverify="required" data-verifymsg="请输入用户名"></td>
+                <th width="15%">性别：</th><td><label class="label-checkbox"><input type="radio" name="sex" value="0"  data-needverify="required" data-verifymsg="请选择性别"><s></s><span>男</span></label> <label class="label-checkbox"><input type="radio" name="sex" value="1" data-needverify="required" data-verifymsg="请选择性别"><s></s><span>女</span></label></td>
+            </tr>
+            <tr>
+                <th>年龄段：</th><td><select name="age" data-needverify="required" data-verifymsg="请选择年龄段"><option value="">请选择</option><option value="0-10">0-10岁</option><option value="11-20">11-20岁</option><option value="21-50">21-50岁</option><option value="51-80">51-80岁</option><option value="81-100">81-100岁</option><option value=">100">大于100岁</option></select></td>
+                <th>手机：</th><td><input type="text" name="phone" data-needverify="required,phone" data-verifymsg="请输入手机号码|请输入正确的手机号码"></td>
+            </tr>
+            <tr>
+                <th>爱好：</th><td colspan="3">
+                    <label class="label-checkbox"><input type="checkbox" name="hobby" value="健身" data-needverify="required" data-verifymsg="难道您没有一个爱好?"><s></s><span>健身</span></label> <label class="label-checkbox"><input type="checkbox" name="hobby" value="钓鱼" data-needverify="required" data-verifymsg="难道您没有一个爱好?"><s></s><span>钓鱼</span></label>
+                </td>
+            </tr>
+            <tr>
+                <th>简介：</th><td colspan="3"><textarea name="content" data-needverify="required" data-verifymsg="请输入简介内容"></textarea></td>
+            </tr>
+        </table>
+        <br>
+        <div class="formfield">不在表格里的字段：<input type="text" data-needverify="required"></div>
+        <p align="center"><input type="button" value="保 存"></p>
+    </form>
+    <script>
+        seajs.use(['$','validate'], function( $, Validate ){
+            
+            // 扩展方法，组件默认只有一个常用的require,int 若要验证其它类型，需要自己扩展
+            // 扩展方法也比较简单，由开发自己写扩展比较好。我不可能把所有可能性的验证都写在上面，这样也不利于代码压缩。
+            Validate.rules.phone = function( ele ){
+                return /^1[3578]{1}\d{9}$/.test( ele.value );
+            }
+            
+            $(':button').on('click', function(){
+                
+                // 第一个参数form是必填项，第二个log可选，查看哪些框没有验证通过的
+                if( Validate.init( 'form', 'log' ) ){
+                    alert('表单验证成功！');
+                }
+                
+            })
+            
+        });
+    </script>
+</body>
+</html>
